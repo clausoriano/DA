@@ -1,0 +1,22 @@
+\begin{lstlisting}
+//PARTE ALGORITMO DEFENSAS
+    ++currentDefense;
+    Candidates candidatesDE = candidatesD((*defenses.begin())->position, nCellsWidth, nCellsHeight, mapWidth / nCellsWidth, mapHeight / nCellsHeight);
+
+    while(currentDefense != defenses.end() && maxAttemps > 0 && !candidatesDE.empty()){
+
+      possible = *candidatesDE.begin();
+
+      candidatesDE.erase(candidatesDE.begin());
+
+      if(funfact((*currentDefense)->radio,possible.x,possible.y,mapWidth / nCellsWidth,mapWidth / nCellsWidth,mapWidth,mapHeight,obstacles,defenses))
+			{
+				(*currentDefense)->position = CellToPos(possible.x,possible.y,mapWidth / nCellsWidth,mapHeight / nCellsHeight);
+				++currentDefense;
+        --maxAttemps;
+      }
+      else
+        --maxAttemps;
+    }
+
+\end{lstlisting}
