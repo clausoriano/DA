@@ -1,0 +1,81 @@
+bool pruebaFusion()
+{
+	Candidates candidatos;
+	candidatos.resize(20);
+	int inicio = 0;
+	int fin = 19;
+	double max = 3000;
+	bool correcto = true;
+
+	for(int i = 0; i < 20; ++i)
+	{
+		candidatos[i].value = rand() % (50+1);
+	}
+	//std::cout << "ORDENACION POR FUSION" << std::endl;
+	ordenacionFusion(candidatos,inicio,fin);
+	for(int j = 0; j < 20; ++j)
+	{
+		if(candidatos[j].value > max)
+		{
+			return false;
+		}
+		max = candidatos[j].value;
+		//std::cout << candidatos[j].value << std::endl;
+
+	}
+	return true;
+}
+
+bool pruebaRapida()
+{
+	Candidates candidatos;
+	candidatos.resize(20);
+	int inicio = 0;
+	int fin = 19;
+	double max = 3000;
+	bool correcto = true;
+
+	for(int i = 0; i < 20; ++i)
+	{
+		candidatos[i].value = rand() % (50+1);
+	}
+	//std::cout << "ORDENACION RAPIDA" << std::endl;
+	ordenacionRapida(candidatos,inicio,fin);
+	for(int j = 0; j < 20; ++j)
+	{
+		if(candidatos[j].value > max)
+		{
+			return false;
+		}
+		
+		max = candidatos[j].value;
+		//std::cout << candidatos[j].value << std::endl;
+		
+	}
+	return true;
+}
+
+bool pruebaMonticulo()
+{
+	Candidates candidatos;
+	candidatos.resize(20);
+	double max = 3000;
+	bool correcto = true;
+
+	for(int i = 0; i < 20; ++i)
+	{
+		candidatos[i].value = rand() % (50+1);
+	}
+	//std::cout << "ORDENACION MONTICULO" << std::endl;
+	ordenacionMonticulo(candidatos);
+	for(int j = 0; j < 20; ++j)
+	{
+		if(candidatos[j].value > max)
+		{
+			return false;
+		}
+		//std::cout << candidatos[j].value << std::endl;
+		max = candidatos[j].value;
+	}
+	return true;
+}

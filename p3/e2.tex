@@ -1,0 +1,87 @@
+void ordenacionInsercion(Candidates& candidatos, int n)
+{
+ 	int i, j; 
+	Cell temp;
+ 	for(i=0; i<n; i++)
+ 	{
+ 		temp=candidatos[i];
+ 		j=i-1;
+ 		while(j>=0 && candidatos[j].value >temp.value)
+ 		{
+ 			candidatos[j+1] = candidatos[j];
+ 			j--;
+ 		}
+
+		candidatos[j+1] = temp;
+	}
+}
+
+void fusion(Candidates& candidatos, int l, int m, int r)
+{
+	int i, j , k;
+	int n1 = m - l  + 1;
+	int n2 = r - m;
+
+	Cell L[n1], R[n2];
+
+	for (i = 0; i < n1; i++) 
+	{
+        L[i] = candidatos[l + i]; 
+	}
+    for (j = 0; j < n2; j++)
+	{ 
+        R[j] = candidatos[m + 1+ j];
+	} 
+
+	i = 0;
+	j = 0;
+	k = l;
+
+	while (i < n1 && j < n2) 
+    { 
+        if(L[i].value > R[j].value) 
+        { 
+            candidatos[k] = L[i]; 
+            i++; 
+        } 
+        else
+        { 
+            candidatos[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    }
+
+	while(i < n1) 
+    { 
+        candidatos[k] = L[i]; 
+        i++; 
+        k++; 
+    }  
+
+	 while(j < n2) 
+    { 
+        candidatos[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+}
+
+//Algoritmo CON PREORDENACION - FUSION
+void ordenacionFusion(Candidates& candidatos, int inicio, int fin)
+{
+	int n = fin - inicio + 1;
+	if (n==0 || n==1)
+	{
+		ordenacionInsercion(candidatos, n);
+	}
+	else
+	{
+		int k = inicio - 1 + (n/2);
+		ordenacionFusion(candidatos, inicio, k);
+		ordenacionFusion(candidatos, k+1, fin);
+		fusion(candidatos, inicio, k, fin);
+	}
+	
+
+}

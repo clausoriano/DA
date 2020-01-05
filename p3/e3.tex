@@ -1,0 +1,59 @@
+void ordenacionInsercion(Candidates& candidatos, int n)
+{
+ 	int i, j; 
+	Cell temp;
+ 	for(i=0; i<n; i++)
+ 	{
+ 		temp=candidatos[i];
+ 		j=i-1;
+ 		while(j>=0 && candidatos[j].value >temp.value)
+ 		{
+ 			candidatos[j+1] = candidatos[j];
+ 			j--;
+ 		}
+
+		candidatos[j+1] = temp;
+	}
+}
+
+int pivote(Candidates& candidatos, int izq, int der)
+{
+	int i;
+	int pivote;
+	double valor_pivote;
+    Cell aux;
+
+    pivote = izq;
+    valor_pivote = candidatos[pivote].value;
+    for (i=izq+1; i<=der; i++){
+        if (candidatos[i].value >= valor_pivote){
+                pivote++;
+                aux=candidatos[i];
+                candidatos[i]=candidatos[pivote];
+                candidatos[pivote]=aux;
+
+        }
+    }
+    aux=candidatos[izq];
+    candidatos[izq]=candidatos[pivote];
+    candidatos[pivote]=aux;
+    return pivote;
+}
+
+
+//Algoritmo CON PREORDENACION - RAPIDA
+void ordenacionRapida(Candidates& candidatos, int inicio, int fin )
+{
+	int n = fin - inicio + 1;
+	if (n==0 || n==1)
+	{
+		ordenacionInsercion(candidatos, n);
+	}
+	else
+	{
+		int p = pivote(candidatos, inicio, fin);
+		ordenacionRapida(candidatos, inicio, p-1);
+		ordenacionRapida(candidatos, p+1, fin);
+	}
+	
+}
